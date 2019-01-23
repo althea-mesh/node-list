@@ -35,18 +35,18 @@ export default class CheckNode extends React.Component {
     this.getMember = this.getMember.bind(this)
   }
 
-  handleQueryChange = event => {
+  handleQueryChange(event) {
     this.setState({ query: event.target.value })
   }
 
-  getMember = async () => {
+  async getMember() {
     return await new Promise(resolve => {
       this.props.app.call('nodeList', this.state.query)
       .subscribe(resolve)
     }).then(a => {return a})
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
     var zero = '0x0000000000000000000000000000000000000000'
     this.getMember().then(address => {
       this.setState({

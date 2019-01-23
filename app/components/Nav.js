@@ -29,6 +29,7 @@ class Nav extends React.Component {
     } 
     this.renderOrganizer = this.renderOrganizer.bind(this)
     this.renderUser = this.renderUser.bind(this)
+    this.setLocale = this.setLocale.bind(this)
   } 
 
   componentDidMount() {
@@ -45,15 +46,15 @@ class Nav extends React.Component {
     }
   }
 
-  setLocale = i => {
+  setLocale(i) {
     let locale = this.locales[i]
     this.props.i18n.changeLanguage(locale.toLowerCase())
     this.setState({ locale })
   }
 
-  active = () => this.locales.findIndex(e => e === this.state.locale)
+  active() {return this.locales.findIndex(e => e === this.state.locale)}
 
-  renderOrganizer = () => {
+  renderOrganizer() {
     return(
       <React.Fragment>
         <NavButton onClick={() => this.props.setPage(NodeList)}> 
@@ -66,7 +67,7 @@ class Nav extends React.Component {
     )
   }
 
-  renderUser = () => {
+  renderUser() {
     return(
       <NavButton onClick={() => this.props.setPage(BillManagement)}>
         {this.props.t('billManagement')}

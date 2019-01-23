@@ -16,15 +16,17 @@ const Form = styled.form`
 
 export default class DeleteNode extends React.Component {
 
-  state = {
-    ip: ''
+  constructor(props) {
+    this.state = {
+      ip: ''
+    }
   }
 
-  handleIndexChange = event => {
+  handleIndexChange(event) {
     this.setState({ ip: event.target.value })
   }
 
-  handleSubmit = event => {
+  handleSubmit(event){
     this.props.app.deleteMember(this.state.ip)
     event.preventDefault()
   }

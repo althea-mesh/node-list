@@ -26,20 +26,22 @@ const ButtonContainer = styled(Button)`
 
 class NewNodeForm extends React.Component {
 
-  state = {
+  contructor(props) {
+  this.state = {
       ethAddr: '0xb4124ceb3451635dacedd11767f004d8a28c6ee7',
       ipAddr: '0xc0a8010ac0a8010a'
     }
+  }
 
-  handleEthAddrChange = event => {
+  handleEthAddrChange(event) {
     this.setState({ ethAddr: event.target.value })
   }
 
-  handleIpAddrChange = event => {
+  handleIpAddrChange(event) {
     this.setState ({ ipAddr: event.target.value })
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
     this.props.app.addMember(this.state.ethAddr, this.state.ipAddr)
     event.preventDefault()
   }

@@ -30,27 +30,29 @@ const QrCard = styled(Card)`
 `
 
 class SubnetAdmin extends Component {
-  state = {
-    bills: 0,
-    checkAddress: '',
-    checkResult: null,
-    daoAddress: '',
-    currentBlock: 0,
-    delay: 300,
-    ethAddress: '',
-    ipAddress: '',
-    ipExists: false,
-    ipValid: true,
-    newPerBlockFee: '',
-    nickname: '',
-    perBlockFee: '',
-    perBlockFeeResult: null,
-    removeAddress: '',
-    removeResult: null,
-    scanning: false,
-  } 
+  constructor(props) {
+    this.state = {
+      bills: 0,
+      checkAddress: '',
+      checkResult: null,
+      daoAddress: '',
+      currentBlock: 0,
+      delay: 300,
+      ethAddress: '',
+      ipAddress: '',
+      ipExists: false,
+      ipValid: true,
+      newPerBlockFee: '',
+      nickname: '',
+      perBlockFee: '',
+      perBlockFeeResult: null,
+      removeAddress: '',
+      removeResult: null,
+      scanning: false,
+    }
+  }
 
-  startScanning = () => {
+  startScanning() {
 
     // eslint-disable-next-line no-restricted-globals
     let w = Math.min(screen.height, screen.width)
@@ -77,7 +79,7 @@ class SubnetAdmin extends Component {
     this.setState({ scanning: true })
   } 
 
-  generateIp = () => {
+  generateIp () {
     const subnet48 = '2001:dead:beef:'
     let bytes = new Uint16Array(1)
     crypto.getRandomValues(bytes)
@@ -92,13 +94,13 @@ class SubnetAdmin extends Component {
     this.setState({ ipAddress })
   } 
 
-  getPerBlockFee = async () => {
+  async getPerBlockFee () {
     return new Promise(resolve =>{
       this.props.app.call('perBlockFee').subscribe(resolve)
     })
   }
 
-  messageHandler = ({ data }) => {
+  messageHandler({ data }) {
     if (data.toString().startsWith('qr:'))
       this.setState({ ethAddress: data.replace('qr:', ''), scanning: false })
   } 
@@ -131,14 +133,14 @@ class SubnetAdmin extends Component {
     window.removeEventListener('message', this.messageHandler)
   }
 
-  collectBills = async () => {
+  async collectBills() {
     await new Promise(resolve => {
       this.props.app.collectBills().subscribe(resolve)
     }) 
     this.componentDidMount()
   } 
 
-  checkNode = () => {
+  checkNode() {
     let { nodes } = this.props
     let { checkAddress } = this.state
     let checkResult = false
@@ -148,7 +150,7 @@ class SubnetAdmin extends Component {
     this.setState({ checkResult })
   } 
 
-  setPerBlockFee = async () => {
+  async setPerBlockFee() {
     let { newPerBlockFee } = this.state
     newPerBlockFee = web3Utils.toWei(newPerBlockFee)
     try {
@@ -160,7 +162,8 @@ class SubnetAdmin extends Component {
     } catch (e) { console.log(e) }
     await this.componentDidMount()
   }
-  removeNode = async () => {
+
+  async removeNode() {
     let { nodes } = this.props
     let { removeAddress } = this.state
 
@@ -179,7 +182,7 @@ class SubnetAdmin extends Component {
     } catch (e) { console.log(e) } 
   } 
 
-  getOwing = async (currentBlock, node) => {
+  async getOwing(currentBlock, node){
     let bill = await this.getBill(node.ethAddress)
     let { lastUpdated, perBlock } = bill
     let blocksElapsed = currentBlock - lastUpdated
@@ -187,32 +190,33 @@ class SubnetAdmin extends Component {
     return blocksElapsed * perBlock
   }
 
-  getLatestBlock = () => {
+  getLatestBlock() {
     return new Promise(resolve => {
       this.props.app.web3Eth('getBlock', 'latest').subscribe(resolve)
     }) 
   } 
 
-  getBill = address => {
+  getBill(address){
     return new Promise(resolve => {
       this.props.app.call('billMapping', address).subscribe(resolve)
     }) 
   } 
 
-  setNickname = e => { 
+  setNickname ( e ) { 
     let nickname = e.target.value
     this.setState({ nickname })
   }
 
-  setEthAddress = e => { 
+  setEthAddress ( e ) { 
     let ethAddress = e.target.value
     this.setState({ ethAddress, scanning: false })
   }
 
-  hexIp = ip =>
-    '0x' + (new Address6(ip)).canonicalForm().replace(new RegExp(':', 'g'), '')
+  hexIp ( ip ) {
+    return '0x' + (new Address6(ip)).canonicalForm().replace(new RegExp(':', 'g'), '')
+  }
 
-  ipExists = ip => {
+  ipExists ( ip ) {
     let { nodes } = this.props
     if (nodes)
       return nodes.findIndex(n => n.ipAddress === this.hexIp(ip)) > -1
@@ -220,7 +224,7 @@ class SubnetAdmin extends Component {
     return false
   } 
 
-  setIpAddress = e => { 
+  setIpAddress ( e ) { 
     let ipAddress = e.target.value
     let ipValid = (new Address6(ipAddress)).isValid()
 
@@ -229,7 +233,7 @@ class SubnetAdmin extends Component {
     this.setState({ ipAddress, ipExists, ipValid })
   }
 
-  addNode = async () => {
+  async addNode ( ) {
     let { ethAddress, ipAddress, nickname } = this.state
     nickname = web3Utils.padRight(web3Utils.toHex(nickname), 32)
     ipAddress = this.hexIp(ipAddress)
@@ -246,13 +250,13 @@ class SubnetAdmin extends Component {
     } catch (e) { console.log(e) }
   } 
 
-  getDaoAddress = () => {
+  getDaoAddress (){
     return new Promise(resolve =>{
       this.props.app.call('kernel').subscribe(resolve)
     })
   }
 
-  formatIp = async e => {
+  async formatIp (e) {
     let addr = new Address6(e.target.value)
     if (addr.isValid()) this.setState({ ipAddress: addr.correctForm() + addr.subnet })
   } 

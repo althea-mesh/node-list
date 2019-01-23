@@ -1,5 +1,5 @@
 import React from 'react'
-import { AragonApp, AppBar, observe, Text } from '@aragon/ui'
+import { AppBar, observe, Text } from '@aragon/ui'
 import styled from 'styled-components'
 import { Grid } from 'react-flexbox-grid'
 import { translate } from 'react-i18next'
@@ -9,11 +9,7 @@ import CheckNode from './components/CheckNode'
 import DeleteNode from './components/DeleteNode'
 import Nav from './components/Nav'
 
-const AppContainer = styled(AragonApp)`
-  display: flex;
-  align-content: flex-start;
-  flex-direction: column;
-`
+import './i18n'
 
 const AltheaAppBar = styled(AppBar)`
   background: #efefef;
@@ -31,26 +27,32 @@ const ModeLink = styled.a`
 `
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { 
       mode: 'user',
       page: null
     }
     this.renderLink = this.renderLink.bind(this);
+    this.setMode = this.setMode.bind(this);
+    this.setPage = this.setPage.bind(this);
   } 
 
-  setMode = mode => this.setState({ mode })
-  setPage = page => this.setState({ page })  
+  setMode(mode) {this.setState({ mode })}
+  setPage(page) {this.setState({ page })}
 
   renderLink() {
     let { mode } = this.state
     return(
       <Text.Block style={{marginTop: '20px'}}>
         <ModeLink
-          onClick={() => {this.setMode(mode === 'user' ? 'organizer' : 'user')}}
+          onClick={
+            () => {this.setMode(mode === 'user' ? 'organizer' : 'user')}
+          }
         >
-          {this.props.t(mode === 'user' ? 'organizerModeLink' : 'userModeLink')}
+          {this.props.t(
+            mode === 'user' ? 'organizerModeLink' : 'userModeLink'
+          )}
         </ModeLink>
       </Text.Block>
     )
@@ -63,34 +65,29 @@ class App extends React.Component {
     if (mode === 'organizer') title += ' ' + t('organizerMode')
 
     return (
-      <AppContainer>
-        <Grid fluid>
-          <AltheaAppBar
-            title={title}
-            endContent={
-              <Nav
-                mode={mode}
-                setMode={this.setMode}
-                setPage={this.setPage}
-              />
-            } 
-          />
-          {this.state.page
-           && <Page
-                app={app}
-                nodes={nodes}
-                appAddress={appAddress}
-                daoAddress={daoAddress}
-              />
-          }
-          {this.renderLink()}
-        </Grid>
-      </AppContainer>
+      <Grid fluid>
+        <AltheaAppBar
+          title={title}
+          endContent={
+            <Nav
+              mode={mode}
+              setMode={this.setMode}
+              setPage={this.setPage}
+            />
+          } 
+        />
+        {this.state.page
+         && <Page
+              app={app}
+              nodes={nodes}
+              appAddress={appAddress}
+              daoAddress={daoAddress}
+            />
+        }
+        {this.renderLink()}
+      </Grid>
     )
   }
 }
 
-export default translate()(observe(
-  observable => observable.map(state => ({ ...state })),
-  {}
-)(App))
+export default translate()(App)

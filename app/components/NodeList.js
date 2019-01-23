@@ -26,9 +26,9 @@ class NodeList extends React.Component {
     }
   }
 
-  fundsColor = funds => (funds > 0) ? "green" : "red"
+  fundsColor(funds) {return (funds > 0) ? "green" : "red"}
 
-  getLatestBlock = () => {
+  getLatestBlock() {
     return new Promise(resolve => {
       this.props.app.web3Eth('getBlock', 'latest').subscribe(resolve)
     })
