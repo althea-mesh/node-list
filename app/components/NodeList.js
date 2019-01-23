@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Address6 } from 'ip-address';
 import BigInteger from 'jsbn';
 import web3Utils from 'web3-utils';
+import NodeStats from './NodeStats';
 
 const WrapCell = styled(TableCell)`
   white-space: pre-wrap;
@@ -28,6 +29,7 @@ const NodeList = translate()(({ app, nodes, t }) => {
 
   return (
     <div>
+      <NodeStats />
       <Table
         header={
           <TableRow>
