@@ -5,7 +5,8 @@
   "main": "Gruntfile.js",
   "scripts": {
     "start": "embark run",
-    "test": "embark test"
+    "test": "embark test",
+    "dev": "parcel serve app/index.html"
   },
   "author": "",
   "license": "MIT",
