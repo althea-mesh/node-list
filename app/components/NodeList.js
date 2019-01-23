@@ -7,10 +7,11 @@ import { Address6 } from 'ip-address';
 import BigInteger from 'jsbn';
 import web3Utils from 'web3-utils';
 
-const Abbr = styled.abbr`
-  cursor: pointer;
-  text-decoration: none;
-`;
+const WrapCell = styled(TableCell)`
+  white-space: pre-wrap;
+  word-break: break-all;
+  white-space: normal;
+`
 
 const NodeList = translate()(({ app, nodes, t }) => {
   let fundsColor = funds => (funds > 0) ? 'green' : 'red';
@@ -54,22 +55,23 @@ const NodeList = translate()(({ app, nodes, t }) => {
               <TableCell>
                 <Text>{nickname}</Text>
               </TableCell>
+              <WrapCell>
+                <Text>{ethAddress}</Text>
+              </WrapCell>
+              <WrapCell>
+                <Text>{ip}</Text>
+              </WrapCell>
               <TableCell>
                 <Text color={fundsColor(bill.balance)}>&Xi;{bill.balance}</Text>
-              </TableCell>
-              <TableCell>
-                <Text><Abbr title={ethAddress}>{trunc(ethAddress, 6)}</Abbr></Text>
-              </TableCell>
-              <TableCell>
-                <Text><Abbr>{ip}</Abbr></Text>
               </TableCell>
               <TableCell>
                 <Text>Insufficient funds</Text>
               </TableCell>
               <TableCell>
                 <ContextMenu>
-                  <ContextMenuItem>Some Action</ContextMenuItem>
-                  <ContextMenuItem>Another Action</ContextMenuItem>
+                  <ContextMenuItem>Remove Node</ContextMenuItem>
+                  <ContextMenuItem>Send Billing Reminder</ContextMenuItem>
+                  <ContextMenuItem>View Node Details</ContextMenuItem>
                 </ContextMenu>
               </TableCell>
             </TableRow>

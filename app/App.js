@@ -25,7 +25,7 @@ class App extends React.Component {
     const { app, nodes, appAddress, daoAddress } = this.props;
 
     return (
-      <AppContainer publicUrl='https://gofuckyourself/'>
+      <AppContainer publicUrl={window.location.href}>
         <GenerateReport opened={false} />
         <SubscriptionFee opened={false} />
         <NewNode opened={false} daoAddress={daoAddress} nodes={nodes} />
