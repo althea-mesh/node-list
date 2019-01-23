@@ -1,93 +1,60 @@
-import React from 'react'
-import { AppBar, observe, Text } from '@aragon/ui'
-import styled from 'styled-components'
-import { Grid } from 'react-flexbox-grid'
-import { translate } from 'react-i18next'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { AragonApp, Button, observe, Text } from '@aragon/ui';
+import styled from 'styled-components';
+import { Grid } from 'react-flexbox-grid';
+import { translate } from 'react-i18next';
 
-import NewNodeForm from './components/NewNodeForm'
-import CheckNode from './components/CheckNode'
-import DeleteNode from './components/DeleteNode'
-import Nav from './components/Nav'
+import Nav from './components/Nav';
 
-import './i18n'
+import GenerateReport from './components/GenerateReport';
+import SubscriptionFee from './components/SubscriptionFee';
+import NewNode from './components/NewNode';
 
-const AltheaAppBar = styled(AppBar)`
-  background: #efefef;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  padding: 0;
-  margin: 20px 0;
-  height: 5em; 
-`
-
-const ModeLink = styled.a`
-  cursor: pointer;
-  color: blue;
-  text-decoration: underline;
-`
+const AppContainer = styled(AragonApp)`
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+`;
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      mode: 'user',
-      page: null
-    }
-    this.renderLink = this.renderLink.bind(this);
-    this.setMode = this.setMode.bind(this);
-    this.setPage = this.setPage.bind(this);
-  } 
+  state = { page: null }
 
-  setMode(mode) {this.setState({ mode })}
-  setPage(page) {this.setState({ page })}
-
-  renderLink() {
-    let { mode } = this.state
-    return(
-      <Text.Block style={{marginTop: '20px'}}>
-        <ModeLink
-          onClick={
-            () => {this.setMode(mode === 'user' ? 'organizer' : 'user')}
-          }
-        >
-          {this.props.t(
-            mode === 'user' ? 'organizerModeLink' : 'userModeLink'
-          )}
-        </ModeLink>
-      </Text.Block>
-    )
-  }
-  render() {
+  render () {
     const Page = this.state.page;
-    const { app, nodes, t, appAddress, daoAddress } = this.props;
-    const { mode } = this.state;
-    let title = t('altheaSubnetDAO')
-    if (mode === 'organizer') title += ' ' + t('organizerMode')
+    const { app, nodes, appAddress, daoAddress } = this.props;
 
     return (
-      <Grid fluid>
-        <AltheaAppBar
-          title={title}
-          endContent={
-            <Nav
-              mode={mode}
-              setMode={this.setMode}
-              setPage={this.setPage}
-            />
-          } 
-        />
-        {this.state.page
-         && <Page
-              app={app}
-              nodes={nodes}
-              appAddress={appAddress}
-              daoAddress={daoAddress}
-            />
-        }
-        {this.renderLink()}
-      </Grid>
-    )
+      <AppContainer publicUrl='https://gofuckyourself/'>
+        <GenerateReport opened={false} />
+        <SubscriptionFee opened={false} />
+        <NewNode opened={false} daoAddress={daoAddress} nodes={nodes} />
+        <Grid fluid>
+          <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
+            <Text size="xxlarge">Althea</Text>
+            <Button mode="strong" style={{ float: 'right' }}>New Node</Button>
+            <Nav setPage={page => this.setState({ page })} />
+          </div>
+          {this.state.page &&
+           <Page
+             app={app}
+             nodes={nodes}
+             appAddress={appAddress}
+             daoAddress={daoAddress}
+           />
+          }
+        </Grid>
+      </AppContainer>
+    );
   }
 }
 
-export default translate()(App)
+App.propTypes = {
+  app: PropTypes.object,
+  nodes: PropTypes.array,
+  appAddress: PropTypes.string,
+  daoAddress: PropTypes.string,
+  t: PropTypes.func
+};
+
+export default translate()(App);
