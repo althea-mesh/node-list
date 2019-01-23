@@ -21,22 +21,24 @@ const SearchField = styled.input.attrs({
   } 
 `
 
-const NodeListControls = translate()(({ t }) => {
+const NodeListControls = translate()(({ displaySidebar, t }) => {
   return (
-      <div class="d-flex justify-content-between">
-        <div class="input-group mb-3" style={{ width: 220 }}>
+      <div className="d-flex justify-content-between">
+        <div className="input-group mb-3" style={{ width: 220 }}>
           <SearchField /> 
-          <div class="input-group-append">
-            <span class="input-group-text bg-white">
+          <div className="input-group-append">
+            <span className="input-group-text bg-white">
               <SearchIcon src={search} />
             </span>
           </div>
         </div>
-        <DropDown
-          items={['Actions',
-            'Update Subscription Fee', 'Collect Bills', 'Generate Report']}
-          active={0}>
-        </DropDown>
+        <div>
+          <DropDown
+            items={['Actions', 'Update Subscription Fee', 'Collect Bills', 'Generate Report']}
+            active={0}
+            onChange={displaySidebar}>
+          </DropDown>
+        </div>
       </div>
   );
 });

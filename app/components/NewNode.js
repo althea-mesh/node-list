@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Field, SidePanel, Text, TextInput } from '@aragon/ui';
 import { translate } from 'react-i18next';
 import { Row, Col } from 'react-flexbox-grid';
+import { Address6 } from 'ip-address';
 import styled from 'styled-components';
 import QrCode from 'qrcode.react';
 
@@ -60,6 +61,9 @@ class NewNode extends React.Component {
     return ipAddress;
   }
 
+  hexIp = ip =>
+    '0x' + (new Address6(ip)).canonicalForm().replace(new RegExp(':', 'g'), '')
+
   ipExists = ip => {
     let { nodes } = this.props;
     if (nodes) {
@@ -74,12 +78,12 @@ class NewNode extends React.Component {
   }
 
   render () {
-    const { opened, t, daoAddress } = this.props;
+    const { handleClose, opened, t, daoAddress } = this.props;
     const { nickname, ethAddress } = this.state;
     const ipAddress = this.getIp();
 
     return (
-      <SidePanel title={t('newNode')} opened={opened}>
+      <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>
         <Field label={t('nodeNickname')}>
           <FatTextInput
             type="text"
@@ -138,6 +142,7 @@ NewNode.propTypes = {
   t: PropTypes.func,
   opened: PropTypes.bool,
   daoAddress: PropTypes.string,
+  handleClose: PropTypes.func,
   nodes: PropTypes.array
 };
 

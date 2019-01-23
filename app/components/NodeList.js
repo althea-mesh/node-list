@@ -8,16 +8,18 @@ import BigInteger from 'jsbn';
 import web3Utils from 'web3-utils';
 import NodeStats from './NodeStats';
 import NodeListControls from './NodeListControls';
+import GenerateReport from './GenerateReport';
+import SubscriptionFee from './SubscriptionFee';
 
 const WrapCell = styled(TableCell)`
-  white-space: pre-wrap;
-  word-break: break-all;
-  white-space: normal;
-`
+  word-break: break-word;
+`;
 
-const NodeList = translate()(({ app, nodes, t }) => {
+const NodeList = translate()(({ app, daoAddress, newNode, nodes, t }) => {
   let fundsColor = funds => (funds > 0) ? 'green' : 'red';
   // if (!nodes || !nodes.length) return <Text>{t('noNodes')}</Text>
+  let generateReport, subscriptionFee;
+  generateReport = subscriptionFee = false;
 
   if (!nodes || !nodes.length) {
     nodes = [{
@@ -28,10 +30,24 @@ const NodeList = translate()(({ app, nodes, t }) => {
     }];
   }
 
+  const displaySidebar = i => {
+    switch (i) {
+      case 2:
+        subscriptionFee = true;
+        break;
+      case 3:
+        generateReport = true;
+        break;
+    }
+  };
+
   return (
     <div>
+      <h1>{newNode}</h1>
+      <GenerateReport opened={generateReport} />
+      <SubscriptionFee opened={subscriptionFee} />
       <NodeStats />
-      <NodeListControls />
+      <NodeListControls displaySidebar={displaySidebar} />
 
       <Table
         header={
