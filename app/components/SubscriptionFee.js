@@ -15,12 +15,12 @@ class SubscriptionFee extends React.Component {
   };
 
   render () {
-    const { opened, t } = this.props;
+    const { handleClose, opened, t } = this.props;
     const { fee } = this.state;
     const currentFee = 0.2;
 
     return (
-      <SidePanel title={t('updateSubscriptionFee')} opened={opened}>
+      <SidePanel title={t('updateSubscriptionFee')} opened={opened} onClose={handleClose} >
         <Info.Action title={t('nodesPay')}>
           <Text>Updating the subscription fee impacts the amount that each node is required to pay for being part of your organization.</Text>
         </Info.Action>
@@ -46,8 +46,9 @@ class SubscriptionFee extends React.Component {
 };
 
 SubscriptionFee.propTypes = {
-  t: PropTypes.func,
-  opened: PropTypes.bool
+  handleClose: PropTypes.func,
+  opened: PropTypes.bool,
+  t: PropTypes.func
 };
 
 export default translate()(SubscriptionFee);

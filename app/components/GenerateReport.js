@@ -31,11 +31,11 @@ class GenerateReport extends React.Component {
   render () {
     const types = ['Finance'];
     const formats = ['CSV'];
-    const { opened, t } = this.props;
+    const { handleClose, opened, t } = this.props;
     const { name, type, format, start, end, columns } = this.state;
 
     return (
-      <SidePanel title="Generate Report" opened={opened}>
+      <SidePanel title="Generate Report" opened={opened} onClose={handleClose}>
         <Field label={t('reportName')}>
           <TextInput wide
             type="text"
@@ -115,8 +115,9 @@ class GenerateReport extends React.Component {
 };
 
 GenerateReport.propTypes = {
-  t: PropTypes.func,
-  opened: PropTypes.bool
+  handleClose: PropTypes.func,
+  opened: PropTypes.bool,
+  t: PropTypes.func
 };
 
 export default translate()(GenerateReport);

@@ -4,7 +4,10 @@ import { AragonApp, Button, Text } from '@aragon/ui';
 import styled from 'styled-components';
 import { Grid } from 'react-flexbox-grid';
 import { translate } from 'react-i18next';
+
 import NewNode from './components/NewNode';
+import GenerateReport from './components/GenerateReport';
+import SubscriptionFee from './components/SubscriptionFee';
 
 import Nav from './components/Nav';
 
@@ -17,23 +20,33 @@ const AppContainer = styled(AragonApp)`
 class App extends React.Component {
   state = {
     newNode: false,
+    subscriptionFee: false,
+    generateReport: false,
     page: null
   }
 
-  handleClose = () => {
-    console.log('hiey');
-    this.setState({ newNode: false });
-  }
+  handleAction = i => {
+    switch (i) {
+      case 1:
+        this.setState({ subscriptionFee: true });
+        break;
+      case 3:
+        this.setState({ generateReport: true });
+        break;
+    }
+  };
 
   render () {
     const Page = this.state.page;
     const { app, nodes, appAddress, daoAddress } = this.props;
-    const { newNode } = this.state;
+    const { newNode, generateReport, subscriptionFee } = this.state;
 
     return (
       <AppContainer publicUrl={window.location.href}>
         <Grid fluid>
-          <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={this.handleClose} />
+          <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
+          <GenerateReport opened={generateReport} handleClose={() => this.setState({ generateReport: false }) } />
+          <SubscriptionFee opened={subscriptionFee} handleClose={() => this.setState({ subscriptionFee: false }) } />
 
           <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
             <Text size="xxlarge">Althea</Text>
@@ -46,7 +59,7 @@ class App extends React.Component {
              nodes={nodes}
              appAddress={appAddress}
              daoAddress={daoAddress}
-             newNode={newNode}
+             handleAction={this.handleAction}
            />
           }
         </Grid>

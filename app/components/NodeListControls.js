@@ -8,7 +8,7 @@ import search from '../search.png';
 const SearchIcon = styled.img`
   width: 20px;
   height: 20px;
-`
+`;
 
 const SearchField = styled.input.attrs({
   className: 'form-control',
@@ -19,27 +19,27 @@ const SearchField = styled.input.attrs({
   &::placeholder {
     color: #ccc;
   } 
-`
+`;
 
-const NodeListControls = translate()(({ displaySidebar, t }) => {
+const NodeListControls = translate()(({ handleAction, t }) => {
   return (
-      <div className="d-flex justify-content-between">
-        <div className="input-group mb-3" style={{ width: 220 }}>
-          <SearchField /> 
-          <div className="input-group-append">
-            <span className="input-group-text bg-white">
-              <SearchIcon src={search} />
-            </span>
-          </div>
-        </div>
-        <div>
-          <DropDown
-            items={['Actions', 'Update Subscription Fee', 'Collect Bills', 'Generate Report']}
-            active={0}
-            onChange={displaySidebar}>
-          </DropDown>
+    <div className="d-flex justify-content-between">
+      <div className="input-group mb-3" style={{ width: 220 }}>
+        <SearchField />
+        <div className="input-group-append">
+          <span className="input-group-text bg-white">
+            <SearchIcon src={search} />
+          </span>
         </div>
       </div>
+      <div>
+        <DropDown
+          items={['Actions', 'Update Subscription Fee', 'Collect Bills', 'Generate Report']}
+          active={0}
+          onChange={handleAction}>
+        </DropDown>
+      </div>
+    </div>
   );
 });
 
