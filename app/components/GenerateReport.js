@@ -90,6 +90,7 @@ class GenerateReport extends React.Component {
 
         <div>
           <input id="address" type="checkbox" value={columns.address} />
+          &nbsp;
           <label htmlFor="address">Recipient Address</label>
         </div>
         <div>
