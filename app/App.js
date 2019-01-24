@@ -15,6 +15,7 @@ const AppContainer = styled(AragonApp)`
   display: flex;
   align-content: flex-start;
   flex-direction: column;
+  margin-top: 20px;
 `;
 
 class App extends React.Component {
@@ -50,7 +51,7 @@ class App extends React.Component {
 
           <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
             <Text size="xxlarge">Althea</Text>
-            <Button mode="strong" style={{ float: 'right' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
+            <Button mode="strong" style={{ float: 'right', padding: '10px 40px' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
             <Nav setPage={page => this.setState({ page })} />
           </div>
           {this.state.page &&

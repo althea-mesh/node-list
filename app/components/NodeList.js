@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ContextMenu, ContextMenuItem, Table, TableHeader, TableRow, TableCell, Text } from '@aragon/ui';
+import { ContextMenu, ContextMenuItem, IconCheck, IconCross, IconError, IconRemove, IconTime, IconSettings, Table, TableHeader, TableRow, TableCell, Text } from '@aragon/ui';
 import { translate } from 'react-i18next';
 import styled from 'styled-components';
 import { Address6 } from 'ip-address';
@@ -34,19 +34,19 @@ const NodeList = translate()(({ app, daoAddress, handleAction, nodes, t }) => {
       },
       {
         nickname: web3Utils.padRight(web3Utils.toHex('Bob\'s Internet Shop'), 32),
-        bill: { balance: 2310000000000000 },
+        bill: { balance: 231000000000000000 },
         ethAddress: '0x229fB539753b1017835501Ccf2f5d2B4dB2367c4',
         ipAddress: '0x2001deadbeefbf0c0000000000000000'
       },
       {
         nickname: web3Utils.padRight(web3Utils.toHex('Deborah'), 32),
-        bill: { balance: 4000000000000000 },
+        bill: { balance: 40000000000000000000 },
         ethAddress: '0x031F80b5B57187C933BDCF7adA1e18c31D0F3728',
         ipAddress: '0x2001deadbeefbf0c0000000000000000'
       },
       {
         nickname: web3Utils.padRight(web3Utils.toHex('Neil'), 32),
-        bill: { balance: 4000000000000000 },
+        bill: { balance: 4000000000000000000 },
         ethAddress: '0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb',
         ipAddress: '0x2001deadbeefbf0c0000000000000000'
       }
@@ -102,13 +102,18 @@ const NodeList = translate()(({ app, daoAddress, handleAction, nodes, t }) => {
                 <Text color={fundsColor(bill.balance)}>{bill.balance} ETH</Text>
               </TableCell>
               <TableCell>
-                <Text>Insufficient funds</Text>
+                <Text>
+                  {bill.balance > 1 ? <IconCheck /> : (bill.balance > 0 ? <IconError /> : <IconCross />)}
+                  &nbsp;
+                  {bill.balance > 1 ? 'On-track' : (bill.balance > 0 ? 'Low balance' : 'Insufficient funds')}
+                </Text>
+
               </TableCell>
               <TableCell>
                 <ContextMenu>
-                  <ContextMenuItem>Remove Node</ContextMenuItem>
-                  <ContextMenuItem>Send Billing Reminder</ContextMenuItem>
-                  <ContextMenuItem>View Node Details</ContextMenuItem>
+                  <ContextMenuItem><IconRemove /> Remove Node</ContextMenuItem>
+                  <ContextMenuItem><IconTime />&nbsp; Send Billing Reminder</ContextMenuItem>
+                  <ContextMenuItem><IconSettings /> View Node Details</ContextMenuItem>
                 </ContextMenu>
               </TableCell>
             </TableRow>
