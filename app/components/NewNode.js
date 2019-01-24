@@ -94,7 +94,7 @@ class NewNode extends React.Component {
         </Field>
 
         <Field label={t('customersEthereumAddress')}>
-          <Text>{t('scanTheQR')}</Text>
+          <Text.Block className="my-2">{t('scanTheQR')}</Text.Block>
           <FatTextInput
             type="text"
             name="fee"
@@ -105,24 +105,21 @@ class NewNode extends React.Component {
           <Button mode="outline">Scan QR Code</Button>
         </Field>
 
-        <hr style={{ border: '1px solid #eee' }} />
+        <hr style={{ width: '100%', marginTop: 0 }} />
 
-        <div style={{ marginTop: 10, marginBottom: 10 }}>
+        <div>
           <Text size="large" weight="bold">{t('configureSubnet')}</Text>
         </div>
 
-        <Row>
-          <Col xs={6}>
-            <Text.Block dangerouslySetInnerHTML={{ __html: t('toAssign', { interpolation: { escapeValue: false } }) }}></Text.Block>
-          </Col>
-          <Col xs={6}>
+        <div className="d-flex flex-wrap mt-2">
+          <Text.Block className="col p-0" dangerouslySetInnerHTML={{ __html: t('toAssign', { interpolation: { escapeValue: false } }) }}></Text.Block>
+          <div className="col text-right mt-2">
             <QrCode value={
               JSON.stringify({ daoAddress, ipAddress })}
-            size={200}
-            style={{ marginTop: 15 }}
+            size={180}
             />
-          </Col>
-        </Row>
+          </div>
+        </div>
 
         <Field label={t('ipAddress')} style={{ marginTop: 10 }}>
           <Text>{ipAddress}</Text>
