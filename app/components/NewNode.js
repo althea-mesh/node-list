@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Field, SidePanel, Text, TextInput } from '@aragon/ui';
 import { translate } from 'react-i18next';
-import { Row, Col } from 'react-flexbox-grid';
 import { Address6 } from 'ip-address';
 import styled from 'styled-components';
 import QrCode from 'qrcode.react';
+import { Contract } from '../Contract';
 
 const FatTextInput = styled(TextInput)`
   padding: 8px;
 `;
 
 class NewNode extends React.Component {
+  static contextType = Contract;
+
   state = {
     fee: '',
     scanning: false
@@ -81,6 +83,7 @@ class NewNode extends React.Component {
     const { handleClose, opened, t, daoAddress } = this.props;
     const { nickname, ethAddress } = this.state;
     const ipAddress = this.getIp();
+    console.log('context', this.context);
 
     return (
       <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>

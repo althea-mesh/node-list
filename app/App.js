@@ -4,14 +4,15 @@ import { AragonApp, Button, Text } from '@aragon/ui';
 import styled from 'styled-components';
 import { Grid } from 'react-flexbox-grid';
 import { translate } from 'react-i18next';
-import Althea from 'Embark/contracts/Althea'
-import EmbarkJS from 'Embark/EmbarkJS'
+import Althea from 'Embark/contracts/Althea';
+import EmbarkJS from 'Embark/EmbarkJS';
 
 import NewNode from './components/NewNode';
 import GenerateReport from './components/GenerateReport';
 import SubscriptionFee from './components/SubscriptionFee';
 
 import Nav from './components/Nav';
+import { Contract, themes } from './Contract';
 
 const AppContainer = styled(AragonApp)`
   display: flex;
@@ -57,9 +58,10 @@ class App extends React.Component {
         return;
       }
       let count = await Althea.methods.getCountOfSubscribers().call();
-      console.log('COUNT', count)
+      console.log('COUNT', count);
     });
 
+    console.log(nodes);
   }
 
   render () {
@@ -70,28 +72,30 @@ class App extends React.Component {
     this.getNodes();
 
     return (
-      <AppContainer publicUrl={window.location.href}>
-        <Grid fluid>
-          <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
-          <GenerateReport opened={generateReport} handleClose={() => this.setState({ generateReport: false }) } />
-          <SubscriptionFee opened={subscriptionFee} handleClose={() => this.setState({ subscriptionFee: false }) } />
+      <Contract.Provider value={Althea}>
+        <AppContainer publicUrl={window.location.href}>
+          <Grid fluid>
+            <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
+            <GenerateReport opened={generateReport} handleClose={() => this.setState({ generateReport: false }) } />
+            <SubscriptionFee opened={subscriptionFee} handleClose={() => this.setState({ subscriptionFee: false }) } />
 
-          <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
-            <Text size="xxlarge">Althea</Text>
-            <Button mode="strong" style={{ float: 'right', padding: '10px 40px' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
-            <Nav setPage={page => this.setState({ page })} />
-          </div>
-          {this.state.page &&
-           <Page
-             app={app}
-             nodes={nodes}
-             appAddress={appAddress}
-             daoAddress={daoAddress}
-             handleAction={this.handleAction}
-           />
-          }
-        </Grid>
-      </AppContainer>
+            <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
+              <Text size="xxlarge">Althea</Text>
+              <Button mode="strong" style={{ float: 'right', padding: '10px 40px' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
+              <Nav setPage={page => this.setState({ page })} />
+            </div>
+            {this.state.page &&
+             <Page
+               app={app}
+               nodes={nodes}
+               appAddress={appAddress}
+               daoAddress={daoAddress}
+               handleAction={this.handleAction}
+             />
+            }
+          </Grid>
+        </AppContainer>
+      </Contract.Provider>
     );
   }
 }
