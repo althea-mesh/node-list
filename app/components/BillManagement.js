@@ -55,10 +55,10 @@ class BillManagement extends React.Component {
     }
   }
 
-  async componentDidMount() {this.setState(await this.getValues())}
-  async componentDidUpdate() {this.setState(await this.getValues())}
+  componentDidMount = async () => this.setState(await this.getValues())
+  componentDidUpdate = async () => this.setState(await this.getValues())
 
-  async addBill() {
+  addBill = async () => {
     await new Promise(resolve => {
       this.props.app.addBill({ value: web3Utils.toWei(this.state.amount)}).subscribe(resolve)
     })
@@ -66,36 +66,35 @@ class BillManagement extends React.Component {
     this.componentDidMount()
   } 
 
-  getAccounts() {
+  getAccounts = () => {
     return new Promise(resolve => {
       this.props.app.accounts().subscribe(resolve)
     }) 
   } 
 
-  async getBill(address) {
+  getBill = async address => {
     return new Promise(resolve => {
       this.props.app.call('billMapping', address).subscribe(resolve)
     }) 
   } 
 
-  async getLatestBlock() {
+  getLatestBlock = () => {
     return new Promise(resolve => {
       this.props.app.web3Eth('getBlock', 'latest').subscribe(resolve)
     }) 
   } 
 
-  getBalance(address) {
+  getBalance = address => {
     return new Promise(resolve => {
       this.props.app.web3Eth('getBalance', address).subscribe(resolve)
     }) 
   } 
-
-  setAmount(e) {
+  setAmount = (e) => {
     let amount = e.target.value
     this.setState({ amount })
   } 
 
-  async withdraw() {
+  withdraw = async () => {
     await new Promise(resolve => {
       this.props.app.withdrawFromBill().subscribe(resolve)
     })

@@ -5,3 +5,4 @@ config/production/password
 config/livenet/password
 .tern-port
 package-lock.json
+.cache

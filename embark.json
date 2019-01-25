@@ -1,7 +1,7 @@
 {
   "contracts": ["contracts/**"],
   "app": {
-    "js/dapp.js": ["app/dapp.js"],
+    "js/dapp.js": ["app/js/dapp.js"],
     "index.html": "app/index.html",
     "images/": ["app/images/**"]
   },
