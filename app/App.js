@@ -12,6 +12,7 @@ import GenerateReport from './components/GenerateReport';
 import SubscriptionFee from './components/SubscriptionFee';
 
 import Nav from './components/Nav';
+import { Contract } from './Contract';
 
 const AppContainer = styled(AragonApp)`
   display: flex;
@@ -25,7 +26,8 @@ class App extends React.Component {
     newNode: false,
     subscriptionFee: false,
     generateReport: false,
-    page: null
+    page: null,
+    nodes: []
   }
 
   handleAction = i => {
@@ -39,8 +41,8 @@ class App extends React.Component {
     }
   };
 
-  getNodes = () => {
-    let nodes = {};
+  getNodes = async () => {
+    // let nodes = {};
 
     /*
     {
@@ -51,15 +53,21 @@ class App extends React.Component {
     }
     */
 
+    let _this = this;
+
     EmbarkJS.onReady(async function (e) {
+      console.log('hi');
       if (e) {
         console.error('Error while connecting to web3', e);
         return;
       }
-      let count = await Althea.methods.getCountOfSubscribers().call();
-      console.log('COUNT', count)
+      Althea.count = await Althea.methods.getCountOfSubscribers().call();
+      _this.setState({ nodes: [1, 2] });
     });
+  }
 
+  async componentDidMount () {
+    await this.getNodes();
   }
 
   render () {
@@ -67,31 +75,31 @@ class App extends React.Component {
     const { app, nodes, appAddress, daoAddress } = this.props;
     const { newNode, generateReport, subscriptionFee } = this.state;
 
-    this.getNodes();
-
     return (
-      <AppContainer publicUrl={window.location.href}>
-        <Grid fluid>
-          <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
-          <GenerateReport opened={generateReport} handleClose={() => this.setState({ generateReport: false }) } />
-          <SubscriptionFee opened={subscriptionFee} handleClose={() => this.setState({ subscriptionFee: false }) } />
+      <Contract.Provider value={this.state}>
+        <AppContainer publicUrl={window.location.href}>
+          <Grid fluid>
+            <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
+            <GenerateReport opened={generateReport} handleClose={() => this.setState({ generateReport: false }) } />
+            <SubscriptionFee opened={subscriptionFee} handleClose={() => this.setState({ subscriptionFee: false }) } />
 
-          <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
-            <Text size="xxlarge">Althea</Text>
-            <Button mode="strong" style={{ float: 'right', padding: '10px 40px' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
-            <Nav setPage={page => this.setState({ page })} />
-          </div>
-          {this.state.page &&
-           <Page
-             app={app}
-             nodes={nodes}
-             appAddress={appAddress}
-             daoAddress={daoAddress}
-             handleAction={this.handleAction}
-           />
-          }
-        </Grid>
-      </AppContainer>
+            <div style={{ background: 'white', borderBottom: '1px solid #ddd' }}>
+              <Text size="xxlarge">Althea</Text>
+              <Button mode="strong" style={{ float: 'right', padding: '10px 40px' }} onClick={() => { this.setState({ newNode: true }); }}>New Node</Button>
+              <Nav setPage={page => this.setState({ page })} />
+            </div>
+            {this.state.page &&
+             <Page
+               app={app}
+               nodes={nodes}
+               appAddress={appAddress}
+               daoAddress={daoAddress}
+               handleAction={this.handleAction}
+             />
+            }
+          </Grid>
+        </AppContainer>
+      </Contract.Provider>
     );
   }
 }

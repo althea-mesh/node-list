@@ -2,19 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Field, SidePanel, Text, TextInput } from '@aragon/ui';
 import { translate } from 'react-i18next';
-import { Row, Col } from 'react-flexbox-grid';
 import { Address6 } from 'ip-address';
 import styled from 'styled-components';
 import QrCode from 'qrcode.react';
+import { Contract } from '../Contract';
 
 const FatTextInput = styled(TextInput)`
   padding: 8px;
 `;
 
 class NewNode extends React.Component {
+  static contextType = Contract;
+
   state = {
     fee: '',
-    scanning: false
+    scanning: false,
+    nodes: []
   };
 
   startScanning = () => {
@@ -77,13 +80,26 @@ class NewNode extends React.Component {
     if (data.toString().startsWith('qr:')) { this.setState({ ethAddress: data.replace('qr:', ''), scanning: false }); }
   }
 
+  componentDidMount () {
+    this.setState({ nodes: this.context.nodes });
+  }
+
   render () {
     const { handleClose, opened, t, daoAddress } = this.props;
     const { nickname, ethAddress } = this.state;
     const ipAddress = this.getIp();
+    console.log('nodes:', this.state.nodes);
 
     return (
       <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>
+        <Contract.Consumer>
+          {({ nodes }) => (
+            <div>
+              <h1>Nodes:</h1>
+              <pre>{JSON.stringify(nodes)}</pre>
+            </div>
+          )}
+        </Contract.Consumer>
         <Field label={t('nodeNickname')}>
           <FatTextInput
             type="text"
