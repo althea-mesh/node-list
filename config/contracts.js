@@ -58,10 +58,16 @@ module.exports = {
     dappConnection: [
       "ws://localhost:8546",
       "http://localhost:8545",
-      "$WEB3"  // uses pre existing web3 object if available (e.g in Mist)
+      "$WEB3" //  uses pre existing web3 object if available (e.g in Mist)
     ],
     afterDeploy: [
-        "Althea.methods.addMember('$accounts[1]', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997', '0x2001deadbeefbf0c0000000000000000').send()"
+      `Althea.methods.addMember('$accounts[1]', '0x2001deadbeefbf0c0000000000000000', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997').send()`,
+      `Althea.methods.addMember('$accounts[2]', '0x2001deadbeefbf0d0000000000000000', '0x4465626f726168000000000000000000').send()`,
+      `Althea.methods.addMember('$accounts[3]', '0x2001deadbeefbf0e0000000000000000', '0x53656261730000000000000000000000').send()`,
+
+      `Althea.methods.addBill('$accounts[1]').send({"vale": 1000000000000000000)`,
+      `Althea.methods.addBill('$accounts[2]').send({"vale": 1000000000000000000)`,
+      `Althea.methods.addBill('$accounts[3]').send({"vale": 1000000000000000000)`
     ]
   },
 

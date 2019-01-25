@@ -16,6 +16,7 @@
     "@aragon/ui": "^0.29.0",
     "blockies": "^0.0.2",
     "bootstrap": "^4.2.1",
+    "chai": "^4.2.0",
     "embark": "^4.0.0-beta.0",
     "eslint-plugin-node": "^8.0.1",
     "i18next": ">= 6.0.1",

@@ -4,8 +4,8 @@ import { AragonApp, Button, Text } from '@aragon/ui';
 import styled from 'styled-components';
 import { Grid } from 'react-flexbox-grid';
 import { translate } from 'react-i18next';
-import Althea from 'Embark/contracts/Althea'
-import EmbarkJS from 'Embark/EmbarkJS'
+import Althea from 'Embark/contracts/Althea';
+import EmbarkJS from 'Embark/EmbarkJS';
 
 import NewNode from './components/NewNode';
 import GenerateReport from './components/GenerateReport';

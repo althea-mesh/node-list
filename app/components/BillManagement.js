@@ -1,10 +1,10 @@
-import React from 'react'
-import { Card, TextInput, Field, Button, Text } from '@aragon/ui'
-import { Row, Col } from 'react-flexbox-grid'
-import styled from 'styled-components'
-import { translate } from 'react-i18next'
-import QrCode from 'qrcode.react'
-import web3Utils from 'web3-utils'
+import React from 'react';
+import { Card, TextInput, Field, Button, Text } from '@aragon/ui';
+import { Row, Col } from 'react-flexbox-grid';
+import styled from 'styled-components';
+import { translate } from 'react-i18next';
+import QrCode from 'qrcode.react';
+import web3Utils from 'web3-utils';
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -13,7 +13,7 @@ const StyledCard = styled(Card)`
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 20px;
-`
+`;
 
 const QrCard = styled(Card)`
   width: 100%;
@@ -24,35 +24,33 @@ const QrCard = styled(Card)`
   height: auto;
   padding: 15px;
   margin: 15px 0;
-`
+`;
 
-
-//https://api.etherscan.io/api?module=stats&action=ethprice
-const BLOCKS_PER_DAY = 6000
+const BLOCKS_PER_DAY = 6000;
 
 class BillManagement extends React.Component {
-  constructor() {
-    super()
-    this.state = { 
+  constructor () {
+    super();
+    this.state = {
       amount: '',
       escrowBalance: '0',
-      days: 0,
-    }
-  } 
+      days: 0
+    };
+  };
 
-  async getValues() {
-    let address = (await this.getAccounts())[0]
-    let currentBlock = (await this.getLatestBlock()).number
-    let bill = await this.getBill(address)
-    let { balance, lastUpdated, perBlock } = bill
-    let blocksElapsed = currentBlock - lastUpdated
-    if (blocksElapsed > 0) blocksElapsed++
-    let days = (balance / (perBlock * BLOCKS_PER_DAY)).toFixed(4)
-    if (isNaN(days)) days = 0
+  async getValues () {
+    let address = (await this.getAccounts())[0];
+    let currentBlock = (await this.getLatestBlock()).number;
+    let bill = await this.getBill(address);
+    let { balance, lastUpdated, perBlock } = bill;
+    let blocksElapsed = currentBlock - lastUpdated;
+    if (blocksElapsed > 0) blocksElapsed++;
+    let days = (balance / (perBlock * BLOCKS_PER_DAY)).toFixed(4);
+    if (isNaN(days)) days = 0;
     return {
       escrowBalance: balance,
       days
-    }
+    };
   }
 
   componentDidMount = async () => this.setState(await this.getValues())
