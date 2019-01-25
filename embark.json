@@ -1,7 +1,7 @@
 {
   "contracts": ["contracts/**"],
   "app": {
-    "js/dapp.js": ["app/js/dapp.js"],
+    "js/dapp.js": ["app/App.js"],
     "index.html": "app/index.html",
     "images/": ["app/images/**"]
   },
@@ -9,7 +9,7 @@
   "config": "config/",
   "versions": {
     "web3": "1.0.0-beta",
-    "solc": "0.4.25",
+    "solc": "0.4.24",
     "ipfs-api": "17.2.4"
   },
   "plugins": {

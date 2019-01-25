@@ -1,11 +1,9 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-eth/contracts/math/SafeMath.sol";
-import "zos-lib/contracts/Initializable.sol";
-
+import "./SafeMath.sol";
 import "./MultiSigWallet.sol";
 
-contract Althea is Initializable {
+contract Althea {
   using SafeMath for uint;
 
   event NewMember(
@@ -52,7 +50,7 @@ contract Althea is Initializable {
   mapping(bytes16 => User) public userMapping;
   mapping(address => Bill) public billMapping;
 
-  function initialize(MultiSigWallet _wallet) external initializer {
+  constructor(MultiSigWallet _wallet) public {
     perBlockFee = 10000;
     wallet = _wallet;
   }

@@ -4,26 +4,20 @@ module.exports = {
     // Blockchain node to deploy the contracts
     deployment: {
       host: "localhost", // Host of the blockchain node
-      port: 8545, // Port of the blockchain node
-      type: "rpc" // Type of connection (ws or rpc),
+      port: 8546, // Port of the blockchain node
+      type: "ws",// Type of connection (ws or rpc),
       // Accounts to use instead of the default account to populate your wallet
-      /*,accounts: [
+      // The order here corresponds to the order of `web3.eth.getAccounts`, so the first one is the `defaultAccount`
+      accounts: [
         {
-          privateKey: "your_private_key",
-          balance: "5 ether"  // You can set the balance of the account in the dev environment
-                              // Balances are in Wei, but you can specify the unit with its name
-        },
-        {
-          privateKeyFile: "path/to/file", // Either a keystore or a list of keys, separated by , or ;
-          password: "passwordForTheKeystore" // Needed to decrypt the keystore file
-        },
-        {
-          mnemonic: "12 word mnemonic",
+          mnemonic: "cook mango twist then skin sort option civil have still rather guilt",
           addressIndex: "0", // Optionnal. The index to start getting the address
-          numAddresses: "1", // Optionnal. The number of addresses to get
           hdpath: "m/44'/60'/0'/0/" // Optionnal. HD derivation path
+        },
+        {
+          "nodeAccounts": true // Uses the Ethereum node's accounts
         }
-      ]*/
+      ]
     },
     // order of connections the dapp should connect to
     dappConnection: [
@@ -31,15 +25,31 @@ module.exports = {
       "ws://localhost:8546",
       "http://localhost:8545"
     ],
+
+    // Automatically call `ethereum.enable` if true.
+    // If false, the following code must run before sending any transaction: `await EmbarkJS.enableEthereum();`
+    // Default value is true.
+    // dappAutoEnable: true,
+
     gas: "auto",
+
+    // Strategy for the deployment of the contracts:
+    // - implicit will try to deploy all the contracts located inside the contracts directory
+    //            or the directory configured for the location of the contracts. This is default one
+    //            when not specified
+    // - explicit will only attempt to deploy the contracts that are explicity specified inside the
+    //            contracts section.
+    //strategy: 'implicit',
+
     contracts: {
-      "Althea":{},
-      "MultiSigWallet": {
-        "args": [
-          ["0x642118388d934533992dcfAA7FC7C62F64d0eDba"],
-          1
-        ]
+      SafeMath: {},
+      MultiSigWallet: {
+        args: [["0xa09bd41a9f1d469fca7b3f82a579b855dd6b279d"], 1]
+      },
+      Althea: {
+        args: ["$MultiSigWallet"]
       }
+
     }
   },
 

@@ -1,0 +1,34 @@
+{
+  "0xe546b3c534d8d80fb17ea0acc6fe57410ef306cff24780b7b61df17ce5a0a445": {
+    "contracts": {
+      "0xbeee34fbe84b190ba24aa4b761f38098aa07f3525b7fb1fb7d78d47f1e692833": {
+        "name": "SafeMath",
+        "address": "0x32a8EBE4104795c9D5bD4E68821EF0aC9dAC9a4f"
+      },
+      "0x3043b04ad856d169c8f0b0509c0bc63192dc7edd92d6933c58708298a0e381be": {
+        "name": "ENSRegistry",
+        "address": "0x8d82598d6DB7064db55e6C39D9B995CA6e6e3F11"
+      },
+      "0xf37dcd175e34110f4c619cddd053fa9113ccd5188f0f6d3175d170f1cb2165e4": {
+        "name": "Resolver",
+        "address": "0x1A2D0C4792b95Fb36cb189f5BF3a3D4fd8e4d882"
+      },
+      "0xe7957177d97ed150cf34bc953d5290c888e0bd12522dc1e28f60129b17c41ffd": {
+        "name": "FIFSRegistrar",
+        "address": "0x1958732560616EFd930E6913066853B12A65A595"
+      },
+      "0xd844b1b3623801561ef9aaae1475f066ea17955877288bf54c9091a65d30f666": {
+        "name": "SafeMath",
+        "address": "0xb708f50e9C119cC6cD54Acd8a748C561DD814716"
+      },
+      "0x1fc1716791f276c09179804a0e59721cc939cdfec765832287314a3bd6f2d062": {
+        "name": "MultiSigWallet",
+        "address": "0x15978B376de73fE5D819f4BDE03a10A682128458"
+      },
+      "0xebcdb0c7c8341f522288fe241e975394a7858459165dbe1fd2c23efdc23d3dd7": {
+        "name": "Althea",
+        "address": "0x9490A735b0f8F1889169BD80C3C542e6F8E4704F"
+      }
+    }
+  }
+}
