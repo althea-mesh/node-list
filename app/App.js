@@ -4,6 +4,8 @@ import { AragonApp, Button, Text } from '@aragon/ui';
 import styled from 'styled-components';
 import { Grid } from 'react-flexbox-grid';
 import { translate } from 'react-i18next';
+import Althea from 'Embark/contracts/Althea'
+import EmbarkJS from 'Embark/EmbarkJS'
 
 import NewNode from './components/NewNode';
 import GenerateReport from './components/GenerateReport';
@@ -37,10 +39,35 @@ class App extends React.Component {
     }
   };
 
+  getNodes = () => {
+    let nodes = {};
+
+    /*
+    {
+      nickname: web3Utils.padRight(web3Utils.toHex('Sebas'), 32),
+      bill: { balance: -10200000000000000 },
+      ethAddress: '0x09C4D1F918D3C02B390765C7EB9849842c8F7997',
+      ipAddress: '0x2001deadbeefbf0c0000000000000000'
+    }
+    */
+
+    EmbarkJS.onReady(async function (e) {
+      if (e) {
+        console.error('Error while connecting to web3', e);
+        return;
+      }
+      let count = await Althea.methods.getCountOfSubscribers().call();
+      console.log('COUNT', count)
+    });
+
+  }
+
   render () {
     const Page = this.state.page;
     const { app, nodes, appAddress, daoAddress } = this.props;
     const { newNode, generateReport, subscriptionFee } = this.state;
+
+    this.getNodes();
 
     return (
       <AppContainer publicUrl={window.location.href}>

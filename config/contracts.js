@@ -49,7 +49,6 @@ module.exports = {
       Althea: {
         args: ["$MultiSigWallet"]
       }
-
     }
   },
 
@@ -60,6 +59,9 @@ module.exports = {
       "ws://localhost:8546",
       "http://localhost:8545",
       "$WEB3"  // uses pre existing web3 object if available (e.g in Mist)
+    ],
+    afterDeploy: [
+        "Althea.methods.addMember('$accounts[1]', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997', '0x2001deadbeefbf0c0000000000000000').send()"
     ]
   },
 
