@@ -1,33 +1,43 @@
-/*global contract, config, it, assert*/
-const Althea = require('Embark/contracts/Althea.sol')
-/*global contract, config, it, assert*/
-const MultiSigWallet = require('Embark/contracts/MultiSigWallet')
+/* global contract, config, it, assert*/
+const Althea = require('Embark/contracts/Althea.sol');
+const MultiSigWallet = require('Embark/contracts/MultiSigWallet');
+const { reverting } = require('./helpers/shouldFail.js');
+const { summation } = require('./helpers/summation.js');
 
-require('chai').should()
+require('chai').should();
 
-const toBN = web3.utils.toBN
-const expectEvent = require('./helpers/expectEvent.js')
-const {
-  shouldFailWithMessage,
-  reverting
-} = require('./helpers/shouldFail.js')
-
-const { assertGasCost } = require('./helpers/assertGasCost.js')
-const { summation } = require('./helpers/summation.js')
-
+const toBN = web3.utils.toBN;
+const expectEvent = require('./helpers/expectEvent.js');
 
 let accounts;
 
 // For documentation please see https://embark.status.im/docs/contracts_testing.htm  l
 config({
+  deployment: {
+    accounts: [
+      {
+        mnemonic: 'cook mango twist then skin sort option civil have still rather guilt',
+        addressIndex: '0',
+        hdpath: `m/44'/60'/0'/0/`
+      },
+      {
+        'nodeAccounts': true
+      }
+    ]
+  },
   contracts: {
-    "Althea": {},
+    'MultiSigWallet': {
+      args: [['$accounts[0]'], 1]
+    },
+    'Althea': {
+      args: ['$MultiSigWallet']
+    }
   }
-}, (_err, web3_accounts) => {
-  accounts = web3_accounts
+}, (_err, web3Accounts) => {
+  accounts = web3Accounts;
 });
 
-const ZERO = '0x0000000000000000000000000000000000000000'
+const ZERO = '0x0000000000000000000000000000000000000000';
 
 async function mineBlocks(count, cb) {
   let i = 0;
@@ -47,8 +57,8 @@ async function mineBlocks(count, cb) {
 contract('Althea', function() {
   this.timeout(0);
 
-  let althea, wallet
-  const required = 2
+  let althea, wallet;
+  const required = 2;
   // the per block fee is .50 usd a day at 200usd ETH
   const perBlockFee = toBN(web3.utils.toWei('0.000000405'))
 
@@ -56,7 +66,16 @@ contract('Althea', function() {
     let ipv6 = web3.utils.padRight('0xc0a8010ac0a8010a', 32)
     let nick = web3.utils.padRight(web3.utils.toHex('Nick Hoggle'), 32)
     it('Reverts when not an owner', async function() {
-      console.log('SUP', accounts)
+      console.log('Bob', web3.utils.padRight(
+        web3.utils.toHex('Bob\'s Internet Shop'), 32
+      ))
+      
+      console.log('Deborah', web3.utils.padRight(
+        web3.utils.toHex('Deborah'), 32)
+      )
+      console.log('Sebas', web3.utils.padRight(
+        web3.utils.toHex('Sebas'), 32
+      ))
       const owners = [accounts[1], accounts[2], accounts[3]]
       const root = owners[0]
       await Althea.methods.initialize(root)
