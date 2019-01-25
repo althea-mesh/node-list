@@ -28,6 +28,14 @@
       "0xebcdb0c7c8341f522288fe241e975394a7858459165dbe1fd2c23efdc23d3dd7": {
         "name": "Althea",
         "address": "0x9490A735b0f8F1889169BD80C3C542e6F8E4704F"
+      },
+      "0xc500d10795bfd21cab3127c8fd9d9f0c4714d7a1804a1932cd5304586f5322f7": {
+        "name": "MultiSigWallet",
+        "address": "0x4877A60DB539D1A36c48f3E4F26Ab0676bE58541"
+      },
+      "0xe0d2a51c494f84bfba9d4f679906ded80de37109e1256ee8210100a9b62b152a": {
+        "name": "Althea",
+        "address": "0xFCE6D4B962dE60E4a213969483203aA85ad7D9D6"
       }
     }
   }

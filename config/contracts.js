@@ -44,7 +44,7 @@ module.exports = {
     contracts: {
       SafeMath: {},
       MultiSigWallet: {
-        args: [["0xa09bd41a9f1d469fca7b3f82a579b855dd6b279d"], 1]
+        args: [["$accounts[0]"], 1]
       },
       Althea: {
         args: ["$MultiSigWallet"]

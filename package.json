@@ -6,7 +6,8 @@
   "scripts": {
     "start": "embark run",
     "test": "embark test",
-    "dev": "parcel serve app/index.html"
+    "dev": "parcel serve app/index.html",
+    "build": "embark build"
   },
   "author": "",
   "license": "MIT",
