@@ -33,9 +33,12 @@ module.exports = {
     ],
     gas: "auto",
     contracts: {
-      SimpleStorage: {
-        fromIndex: 0,
-        args: [100]
+      "Althea":{},
+      "MultiSigWallet": {
+        "args": [
+          ["0x642118388d934533992dcfAA7FC7C62F64d0eDba"],
+          1
+        ]
       }
     }
   },

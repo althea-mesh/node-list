@@ -16,6 +16,62 @@
       "0x727e46e138e0dfcc3673d3c4b420978793f0a3b8922a4a1bd0653d66a7caa1f5": {
         "name": "FIFSRegistrar",
         "address": "0xE7d8bafC5afB9A7679901fC774b5E871779d13C1"
+      },
+      "0x56dd983726fe7277da4143c0ebcde64618eb9931b28c724849ab16a33355fa0d": {
+        "name": "Althea",
+        "address": "0xf3e95D6F0F23Ef137223709EC06609d7E3a98062"
+      },
+      "0xbeee34fbe84b190ba24aa4b761f38098aa07f3525b7fb1fb7d78d47f1e692833": {
+        "name": "SafeMath",
+        "address": "0xcFa398B87eAaf7C557c40FEF196946449a3586C4"
+      },
+      "0x178fe5627e5a00f8eb5e862bd9e01c1b1455e751770fe882abb726d2732721af": {
+        "name": "Initializable",
+        "address": "0x7B818d6AbE64D4e6200A5E079C9bf8aFc02D9991"
+      },
+      "0xce837f94037476bb28b10d28d9255bcda5a2d275bc9334191a0b10747573836e": {
+        "name": "MultiSigWallet",
+        "address": "0x6f595B96bbA75d09c8fcC4aEB918361b2238C136"
+      }
+    }
+  },
+  "0x3e40b809364cb5c28e6c4a1ee7008e540e0c69672ede3f63c36febd3c3d19b08": {
+    "contracts": {
+      "0x41cbc3fd149184ffb68d7533b6a375c523b369bde0f4cbbff5c1f654d9d736ac": {
+        "name": "SimpleStorage",
+        "address": "0x5Cc69b6802f779b701E5502bC0c0674f84572400"
+      }
+    }
+  },
+  "0x66eeacc943ec336418608e090c9e058a3e9ea65832d42d567cb916044e0ba728": {
+    "contracts": {
+      "0x751ddb5c10985ab77b785687d6396cf9ab6d824fb572f0c41d0059e1864abfca": {
+        "name": "Althea",
+        "address": "0x399Cb7f6b10ccD5f2BAfadCD4882e2f51BD48235"
+      }
+    }
+  },
+  "0x2b56445deb95d3b1f3b6246769438632f2813f8089e8824989513f6760f986fa": {
+    "contracts": {
+      "0x751ddb5c10985ab77b785687d6396cf9ab6d824fb572f0c41d0059e1864abfca": {
+        "name": "Althea",
+        "address": "0x97289Fbc5C89F80Edb3Ab80a6a55492D1AB54321"
+      }
+    }
+  },
+  "0x56adf095c7d8f648b3004da4579bb3913530ab4736f18388137d10fe37a6b349": {
+    "contracts": {
+      "0x751ddb5c10985ab77b785687d6396cf9ab6d824fb572f0c41d0059e1864abfca": {
+        "name": "Althea",
+        "address": "0x524eD96675a66217291Bd734165aCd6fB43e5928"
+      }
+    }
+  },
+  "0x6eaeaee26694b34b6f6dbbe4e35c45984b6dfd3203b42f0784c16d56f0ba472d": {
+    "contracts": {
+      "0x751ddb5c10985ab77b785687d6396cf9ab6d824fb572f0c41d0059e1864abfca": {
+        "name": "Althea",
+        "address": "0xbAA570bf91e5Af54803B406a6C241F0fAbbc27B4"
       }
     }
   }
