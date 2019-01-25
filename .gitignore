@@ -6,3 +6,4 @@ config/livenet/password
 .tern-port
 package-lock.json
 .cache
+chains.json
