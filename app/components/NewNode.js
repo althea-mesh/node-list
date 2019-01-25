@@ -16,7 +16,8 @@ class NewNode extends React.Component {
 
   state = {
     fee: '',
-    scanning: false
+    scanning: false,
+    nodes: []
   };
 
   startScanning = () => {
@@ -79,14 +80,26 @@ class NewNode extends React.Component {
     if (data.toString().startsWith('qr:')) { this.setState({ ethAddress: data.replace('qr:', ''), scanning: false }); }
   }
 
+  componentDidMount () {
+    this.setState({ nodes: this.context.nodes });
+  }
+
   render () {
     const { handleClose, opened, t, daoAddress } = this.props;
     const { nickname, ethAddress } = this.state;
     const ipAddress = this.getIp();
-    console.log('context', this.context);
+    console.log('nodes:', this.state.nodes);
 
     return (
       <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>
+        <Contract.Consumer>
+          {({ nodes }) => (
+            <div>
+              <h1>Nodes:</h1>
+              <pre>{JSON.stringify(nodes)}</pre>
+            </div>
+          )}
+        </Contract.Consumer>
         <Field label={t('nodeNickname')}>
           <FatTextInput
             type="text"

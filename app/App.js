@@ -12,7 +12,7 @@ import GenerateReport from './components/GenerateReport';
 import SubscriptionFee from './components/SubscriptionFee';
 
 import Nav from './components/Nav';
-import { Contract, themes } from './Contract';
+import { Contract } from './Contract';
 
 const AppContainer = styled(AragonApp)`
   display: flex;
@@ -26,7 +26,8 @@ class App extends React.Component {
     newNode: false,
     subscriptionFee: false,
     generateReport: false,
-    page: null
+    page: null,
+    nodes: []
   }
 
   handleAction = i => {
@@ -40,8 +41,8 @@ class App extends React.Component {
     }
   };
 
-  getNodes = () => {
-    let nodes = {};
+  getNodes = async () => {
+    // let nodes = {};
 
     /*
     {
@@ -52,16 +53,21 @@ class App extends React.Component {
     }
     */
 
+    let _this = this;
+
     EmbarkJS.onReady(async function (e) {
+      console.log('hi');
       if (e) {
         console.error('Error while connecting to web3', e);
         return;
       }
-      let count = await Althea.methods.getCountOfSubscribers().call();
-      console.log('COUNT', count);
+      Althea.count = await Althea.methods.getCountOfSubscribers().call();
+      _this.setState({ nodes: [1, 2] });
     });
+  }
 
-    console.log(nodes);
+  async componentDidMount () {
+    await this.getNodes();
   }
 
   render () {
@@ -69,10 +75,8 @@ class App extends React.Component {
     const { app, nodes, appAddress, daoAddress } = this.props;
     const { newNode, generateReport, subscriptionFee } = this.state;
 
-    this.getNodes();
-
     return (
-      <Contract.Provider value={Althea}>
+      <Contract.Provider value={this.state}>
         <AppContainer publicUrl={window.location.href}>
           <Grid fluid>
             <NewNode opened={newNode} daoAddress={daoAddress} nodes={nodes} handleClose={() => this.setState({ newNode: false }) } />
