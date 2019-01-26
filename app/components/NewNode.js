@@ -92,14 +92,6 @@ class NewNode extends React.Component {
 
     return (
       <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>
-        <Contract.Consumer>
-          {({ nodes }) => (
-            <div>
-              <h1>Nodes:</h1>
-              <pre>{JSON.stringify(nodes)}</pre>
-            </div>
-          )}
-        </Contract.Consumer>
         <Field label={t('nodeNickname')}>
           <FatTextInput
             type="text"

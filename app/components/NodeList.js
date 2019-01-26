@@ -54,6 +54,7 @@ const NodeList = translate()(({ app, daoAddress, handleAction, t }) => {
     <Contract.Consumer>{app => {
       let { nodes } = app;
       if (!nodes || !nodes.length) return <Text>{t('noNodes')}</Text>;
+
       return (<div>
         <NodeStats />
         <NodeListControls handleAction={handleAction} />
@@ -75,10 +76,7 @@ const NodeList = translate()(({ app, daoAddress, handleAction, t }) => {
               nickname = web3Utils.toUtf8(nickname);
               let addr = Address6.fromBigInteger(new BigInteger(ipAddress.substr(2), 16));
               let ip = addr.correctForm() + '/64';
-              //
-              // expecbill.balance = bill.blockNumber * current
 
-              bill.balance = web3Utils.fromWei(bill.balance.toString());
               return (
                 <tr key={i}>
                   <td>

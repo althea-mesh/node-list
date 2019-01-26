@@ -6,6 +6,7 @@ import { Grid } from 'react-flexbox-grid';
 import { translate } from 'react-i18next';
 import Althea from 'Embark/contracts/Althea';
 import EmbarkJS from 'Embark/EmbarkJS';
+import web3Utils from 'web3-utils';
 
 import NewNode from './components/NewNode';
 import GenerateReport from './components/GenerateReport';
@@ -62,7 +63,34 @@ class App extends React.Component {
         let node = { nickname, bill, ethAddress, ipAddress };
         nodes.push(node);
       }
-      console.log(nodes);
+
+      nodes = [
+        {
+          nickname: web3Utils.padRight(web3Utils.toHex('Sebas'), 32),
+          bill: { balance: -10200000000000000 },
+          ethAddress: '0x09C4D1F918D3C02B390765C7EB9849842c8F7997',
+          ipAddress: '0x2001deadbeefbf0c0000000000000000'
+        },
+        {
+          nickname: web3Utils.padRight(web3Utils.toHex('Bob\'s Internet Shop'), 32),
+          bill: { balance: 2310000000000000 },
+          ethAddress: '0x229fB539753b1017835501Ccf2f5d2B4dB2367c4',
+          ipAddress: '0x2001deadbeefbf0c0000000000000000'
+        },
+        {
+          nickname: web3Utils.padRight(web3Utils.toHex('Deborah'), 32),
+          bill: { balance: 4000000000000000 },
+          ethAddress: '0x031F80b5B57187C933BDCF7adA1e18c31D0F3728',
+          ipAddress: '0x2001deadbeefbf0c0000000000000000'
+        },
+        {
+          nickname: web3Utils.padRight(web3Utils.toHex('Neil'), 32),
+          bill: { balance: 4000000000000000 },
+          ethAddress: '0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb',
+          ipAddress: '0x2001deadbeefbf0c0000000000000000'
+        }
+
+      ];
       _this.setState({ nodes });
     });
   }
