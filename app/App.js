@@ -42,27 +42,28 @@ class App extends React.Component {
   };
 
   getNodes = async () => {
-    // let nodes = {};
-
-    /*
-    {
-      nickname: web3Utils.padRight(web3Utils.toHex('Sebas'), 32),
-      bill: { balance: -10200000000000000 },
-      ethAddress: '0x09C4D1F918D3C02B390765C7EB9849842c8F7997',
-      ipAddress: '0x2001deadbeefbf0c0000000000000000'
-    }
-    */
-
     let _this = this;
 
     EmbarkJS.onReady(async function (e) {
-      console.log('hi');
       if (e) {
         console.error('Error while connecting to web3', e);
         return;
       }
-      Althea.count = await Althea.methods.getCountOfSubscribers().call();
-      _this.setState({ nodes: [1, 2] });
+      let count = await Althea.methods.getCountOfSubscribers().call();
+
+      let nodes = [];
+      for (let i = 0; i < count; i++) {
+        let ipAddress = await Althea.methods.subnetSubscribers(i).call();
+        let user = await Althea.methods.userMapping(ipAddress).call();
+        console.log(user);
+        let ethAddress = user.ethAddr;
+        let nickname = user.nick;
+        let bill = (await Althea.methods.billMapping(ethAddress).call()).balance;
+        let node = { nickname, bill, ethAddress, ipAddress };
+        nodes.push(node);
+      }
+      console.log(nodes);
+      _this.setState({ nodes });
     });
   }
 
