@@ -4,6 +4,7 @@ import { DropDown } from '@aragon/ui';
 import { translate } from 'react-i18next';
 import styled from 'styled-components';
 import search from '../search.png';
+import { Contract } from '../Contract';
 
 const SearchIcon = styled.img`
   width: 20px;
@@ -25,7 +26,9 @@ const NodeListControls = translate()(({ handleAction, t }) => {
   return (
     <div className="d-flex justify-content-between">
       <div className="input-group mb-3" style={{ width: 220 }}>
-        <SearchField />
+        <Contract.Consumer>{state =>
+          <SearchField onChange={state.setSearch} />
+        }</Contract.Consumer>
         <div className="input-group-append">
           <span className="input-group-text bg-white">
             <SearchIcon src={search} />

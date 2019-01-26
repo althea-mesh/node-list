@@ -7,6 +7,9 @@ import { translate } from 'react-i18next';
 import Althea from 'Embark/contracts/Althea';
 import EmbarkJS from 'Embark/EmbarkJS';
 import web3Utils from 'web3-utils';
+import { Address6 } from 'ip-address';
+import BigInteger from 'jsbn';
+import Fuse from 'fuse.js';
 
 import NewNode from './components/NewNode';
 import GenerateReport from './components/GenerateReport';
@@ -23,12 +26,30 @@ const AppContainer = styled(AragonApp)`
 `;
 
 class App extends React.Component {
+  setSearch = event => {
+    let nodes = this.state.nodes;
+    let filteredNodes = nodes;
+
+    if (event.target.value) {
+      let options = {
+        threshold: 0.1,
+        keys: ['ipAddress', 'ethAddress', 'nickname']
+      };
+      let fuse = new Fuse(nodes, options);
+
+      filteredNodes = fuse.search(event.target.value);
+    }
+
+    this.setState({ filteredNodes });
+  }
+
   state = {
     newNode: false,
     subscriptionFee: false,
     generateReport: false,
     page: null,
-    nodes: []
+    nodes: [],
+    setSearch: this.setSearch
   }
 
   handleAction = i => {
@@ -89,8 +110,15 @@ class App extends React.Component {
           ethAddress: '0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb',
           ipAddress: '0x2001deadbeefbf0c0000000000000000'
         }
-
       ];
+
+      nodes = nodes.map((node, i) => {
+        let { nickname, ipAddress } = node;
+        nickname = web3Utils.toUtf8(nickname);
+        ipAddress = Address6.fromBigInteger(new BigInteger(ipAddress.substr(2), 16)).correctForm() + '/64';
+        return { ...node, nickname, ipAddress };
+      });
+
       _this.setState({ nodes });
     });
   }
