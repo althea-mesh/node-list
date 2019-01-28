@@ -43,25 +43,21 @@ class App extends React.Component {
     this.setState({ filteredNodes });
   }
 
+  displaySidebar = key => {
+    this.setState({
+      [key]: true
+    });
+  }
+
   state = {
     newNode: false,
     subscriptionFee: false,
     generateReport: false,
     page: null,
     nodes: [],
-    setSearch: this.setSearch
+    setSearch: this.setSearch,
+    displaySidebar: this.displaySidebar
   }
-
-  handleAction = i => {
-    switch (i) {
-      case 1:
-        this.setState({ subscriptionFee: true });
-        break;
-      case 3:
-        this.setState({ generateReport: true });
-        break;
-    }
-  };
 
   getNodes = async () => {
     let _this = this;
@@ -152,7 +148,6 @@ class App extends React.Component {
                nodes={nodes}
                appAddress={appAddress}
                daoAddress={daoAddress}
-               handleAction={this.handleAction}
              />
             }
           </Grid>

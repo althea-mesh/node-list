@@ -88,7 +88,6 @@ class NewNode extends React.Component {
     const { handleClose, opened, t, daoAddress } = this.props;
     const { nickname, ethAddress } = this.state;
     const ipAddress = this.getIp();
-    console.log('nodes:', this.state.nodes);
 
     return (
       <SidePanel title={t('newNode')} opened={opened} onClose={handleClose}>
