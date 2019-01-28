@@ -120,6 +120,7 @@ class App extends React.Component {
       });
 
       _this.setState({ nodes });
+      _this.setState({ filteredNodes: nodes });
     });
   }
 
