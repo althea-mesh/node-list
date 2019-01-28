@@ -64,10 +64,9 @@ module.exports = {
       `Althea.methods.addMember('$accounts[1]', '0x2001deadbeefbf0aa000000000000000', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997').send()`,
       `Althea.methods.addMember('$accounts[2]', '0x2001deadbeefbf0d0000000000000000', '0x4465626f726168000000000000000000').send()`,
       `Althea.methods.addMember('$accounts[3]', '0x2001deadbeefbf0e0000000000000000', '0x53656261730000000000000000000000').send()`,
-
-      `Althea.methods.addBill('$accounts[1]').send({"value": 1000000000000000000)`,
-      `Althea.methods.addBill('$accounts[2]').send({"value": 1000000000000000000)`,
-      `Althea.methods.addBill('$accounts[3]').send({"value": 1000000000000000000)`
+      `Althea.methods.addBill('$accounts[1]').send({"value": 1000000000000000000})`,
+      `Althea.methods.addBill('$accounts[2]').send({"value": 1000000000000000000})`,
+      `Althea.methods.addBill('$accounts[3]').send({"value": 1000000000000000000})`
     ]
   },
 
