@@ -61,11 +61,10 @@ contract Althea {
 
   function getCurrentBalance(bytes16 _ip) external view returns(uint balance) {
 
-
   }
 
   function getBill(bytes16 _ip) external view returns(Bill bill) {
-    bill = billMapping[userMapping[_ip].ethAddr];
+    return billMapping[userMapping[_ip].ethAddr];
   }
 
   function setPerBlockFee(uint _newFee) external onlyOwners {
