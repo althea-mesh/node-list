@@ -59,8 +59,9 @@ contract Althea {
     addr = userMapping[_ip].ethAddr;
   }
 
-  function getCurrentBalanceOfAddress(address _subscriber) external view returns(uint balance) {
-    Bill memory bill = billMapping[_subscriber];
+  function getCurrentBalanceOfAddress(bytes16 _ip) external view returns(uint balance) {
+
+    Bill memory bill = billMapping[userMapping[_ip].ethAddr];
     uint amountOwed = block.number.sub(bill.lastUpdated).mul(bill.perBlock);
     return bill.balance.sub(amountOwed);
   }
