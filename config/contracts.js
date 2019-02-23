@@ -51,9 +51,9 @@ module.exports = {
       Althea: {
         args: ["$MultiSigWallet"],
         onDeploy: [
-          `Althea.methods.addMember('$accounts[1]', '0x2001deadbeefbf0aa000000000000000', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997').send()`,
-          `Althea.methods.addMember('$accounts[2]', '0x2001deadbeefbf0d0000000000000000', '0x4465626f726168000000000000000000').send()`,
-          `Althea.methods.addMember('$accounts[3]', '0x2001deadbeefbf0e0000000000000000', '0x53656261730000000000000000000000').send()`,
+          `Althea.methods.addMember('$accounts[1]', '0x26051c40beef00000000000000006625', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997').send()`,
+          `Althea.methods.addMember('$accounts[2]', '0x26051c40beef00000000000000004359', '0x4465626f726168000000000000000000').send()`,
+          `Althea.methods.addMember('$accounts[3]', '0x26051c40beef00000000000000000059', '0x53656261730000000000000000000000').send()`,
           `Althea.methods.addBill('$accounts[1]').send({"value": 1000000000000000000})`,
           `Althea.methods.addBill('$accounts[2]').send({"value": 1000000000000000000})`,
           `Althea.methods.addBill('$accounts[3]').send({"value": 1000000000000000000})`
@@ -73,8 +73,34 @@ module.exports = {
   },
 
   rinkeby: {
+    contracts: {
+      SafeMath: {},
+      MultiSigWallet: {
+        args: [["$accounts[0]"], 1]
+      },
+      Althea: {
+        args: ["$MultiSigWallet"],
+        onDeploy: [
+          //_ethAddr, _ip, _nick
+          `Althea.methods.addMember('$accounts[1]', '0x26051c40beef00000000000000006625', '0x09C4D1F918D3C02B390765C7EB9849842c8F7997').send()`,
+          `Althea.methods.addMember('$accounts[2]', '0x26051c40beef00000000000000004359', '0x4465626f726168000000000000000000').send()`,
+          `Althea.methods.addMember('$accounts[3]', '0x26051c40beef00000000000000000059', '0x53656261730000000000000000000000').send()`,
+          // _subscriber (eth addr of above)
+          `Althea.methods.addBill('$accounts[1]').send({"value": 1000000000000000000})`,
+          `Althea.methods.addBill('$accounts[2]').send({"value": 1000000000000000000})`,
+          `Althea.methods.addBill('$accounts[3]').send({"value": 1000000000000000000})`
+        ]
+      }
+    },
     deployment: {
-      accounts: [{ mnemonic: process.env.MNEMONIC }],
+      accounts: [
+        {
+          mnemonic: process.env.MNEMONIC,
+          addressIndex: "0",
+          numAddresses: "10",
+          hdpath: "m/44'/60'/0'/0/"
+        }
+      ],
       host: "rinkeby.infura.io/v3/" + process.env.INFURA_API,
       port: false,
       protocol: "https",
