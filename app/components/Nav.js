@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from '@aragon/ui';
-import styled from 'styled-components';
-import { translate } from 'react-i18next';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button } from "@aragon/ui";
+import styled from "styled-components";
+import { translate } from "react-i18next";
 
-import NodeList from './NodeList';
-import Settings from './Settings';
+import NodeList from "./NodeList";
+import Settings from "./Settings";
 
 const NavButton = styled(Button)`
   border-left: none;
   border-right: none;
   border-radius: 0;
-  border-bottom: ${props => props.active ? '5px solid #37CFCB' : 'none'}
+  border-bottom: ${props => (props.active ? "5px solid #37CFCB" : "none")};
 `;
 
 const pages = {
@@ -21,26 +21,32 @@ const pages = {
 
 class Nav extends React.Component {
   state = {
-    page: 'nodeList'
-  }
+    page: "nodeList"
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.setPage(NodeList);
   }
 
   setPage = p => {
     this.setState({ page: p });
     this.props.setPage(pages[p]);
-  }
+  };
 
-  render () {
+  render() {
     const { page } = this.state;
 
     return (
       <div>
         {Object.keys(pages).map(p => {
           return (
-            <NavButton key={p} onClick={() => { this.setPage(p); }} active={page === p}>
+            <NavButton
+              key={p}
+              onClick={() => {
+                this.setPage(p);
+              }}
+              active={page === p}
+            >
               {this.props.t(p)}
             </NavButton>
           );

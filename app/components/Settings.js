@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, DropDown, Text, TextInput } from '@aragon/ui';
-import { translate } from 'react-i18next';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, DropDown, Text, TextInput } from "@aragon/ui";
+import { translate } from "react-i18next";
+import styled from "styled-components";
 
-const locales = ['EN', 'ES'];
+const locales = ["EN", "ES"];
 const Spacer = styled.div`
   margin: 15px 0;
 `;
@@ -21,14 +21,14 @@ const InputGroup = styled.div`
     margin: 0;
     border-radius: 3px;
     vertical-align: middle;
-  } 
+  }
   ${TextInput} {
     display: table-cell;
     padding: 10px;
     border-right: none;
     margin-right: -1px;
     margin-bottom: -1px;
-  } 
+  }
 `;
 
 class Settings extends React.Component {
@@ -46,31 +46,32 @@ class Settings extends React.Component {
     let locale = locales[i];
     this.props.i18n.changeLanguage(locale.toLowerCase());
     this.setState({ locale: i });
-  }
+  };
 
-  render () {
+  render() {
     const { t } = this.props;
     const { locale, threshold } = this.state;
 
     return (
       <div style={{ marginTop: 30 }}>
-        <Text size="large">{t('language')}</Text>
+        <Text size="large">{t("language")}</Text>
         <Spacer />
-        <Text.Block>This will be the default language for display purposes.</Text.Block>
+        <Text.Block>
+          This will be the default language for display purposes.
+        </Text.Block>
         <Spacer />
 
-        <DropDown
-          items={locales}
-          active={locale}
-          onChange={this.setType}
-        />
+        <DropDown items={locales} active={locale} onChange={this.setType} />
         <Spacer />
         <Spacer />
         <Button mode="strong">Submit Changes</Button>
         <Spacer />
         <Text size="large">Low Balance Threshold</Text>
         <Spacer />
-        <Text.Block>When a nodes balance is equal to or below this level, it will be considered a low balance.</Text.Block>
+        <Text.Block>
+          When a nodes balance is equal to or below this level, it will be
+          considered a low balance.
+        </Text.Block>
         <Spacer />
         <InputGroup>
           <TextInput
